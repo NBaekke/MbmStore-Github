@@ -1,0 +1,14 @@
+C:\Users\Bække\Desktop\Studie\EAAA\Backend\Lesson02_MbmStore_startup\MbmStore\bin\Release\netcoreapp2.0\win-x86\hostpolicy.dll
+C:\Users\Bække\Desktop\Studie\EAAA\Backend\Lesson02_MbmStore_startup\MbmStore\bin\Release\netcoreapp2.0\win-x86\hostfxr.dll
+C:\Users\Bække\Desktop\Studie\EAAA\Backend\Lesson02_MbmStore_startup\MbmStore\bin\Release\netcoreapp2.0\win-x86\MbmStore.exe
+C:\Users\Bække\Desktop\Studie\EAAA\Backend\Lesson02_MbmStore_startup\MbmStore\bin\Release\netcoreapp2.0\win-x86\MbmStore.deps.json
+C:\Users\Bække\Desktop\Studie\EAAA\Backend\Lesson02_MbmStore_startup\MbmStore\bin\Release\netcoreapp2.0\win-x86\MbmStore.runtimeconfig.json
+C:\Users\Bække\Desktop\Studie\EAAA\Backend\Lesson02_MbmStore_startup\MbmStore\bin\Release\netcoreapp2.0\win-x86\MbmStore.runtimeconfig.dev.json
+C:\Users\Bække\Desktop\Studie\EAAA\Backend\Lesson02_MbmStore_startup\MbmStore\bin\Release\netcoreapp2.0\win-x86\MbmStore.dll
+C:\Users\Bække\Desktop\Studie\EAAA\Backend\Lesson02_MbmStore_startup\MbmStore\bin\Release\netcoreapp2.0\win-x86\MbmStore.pdb
+C:\Users\Bække\Desktop\Studie\EAAA\Backend\Lesson02_MbmStore_startup\MbmStore\obj\Release\netcoreapp2.0\win-x86\MbmStore.csprojAssemblyReference.cache
+C:\Users\Bække\Desktop\Studie\EAAA\Backend\Lesson02_MbmStore_startup\MbmStore\obj\Release\netcoreapp2.0\win-x86\MbmStore.csproj.CoreCompileInputs.cache
+C:\Users\Bække\Desktop\Studie\EAAA\Backend\Lesson02_MbmStore_startup\MbmStore\obj\Release\netcoreapp2.0\win-x86\MbmStore.AssemblyInfoInputs.cache
+C:\Users\Bække\Desktop\Studie\EAAA\Backend\Lesson02_MbmStore_startup\MbmStore\obj\Release\netcoreapp2.0\win-x86\MbmStore.AssemblyInfo.cs
+C:\Users\Bække\Desktop\Studie\EAAA\Backend\Lesson02_MbmStore_startup\MbmStore\obj\Release\netcoreapp2.0\win-x86\MbmStore.dll
+C:\Users\Bække\Desktop\Studie\EAAA\Backend\Lesson02_MbmStore_startup\MbmStore\obj\Release\netcoreapp2.0\win-x86\MbmStore.pdb

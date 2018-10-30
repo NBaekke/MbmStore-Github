@@ -1,0 +1,94 @@
+﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@*TagHelper til links*@
+@using MbmStore.Models
+@{
+	ViewData["Title"] = "Invoices";
+}
+<p>
+	<a asp-controller="Home" asp-action="Index">Home</a>
+</p>
+<p>
+	<a asp-controller="Catalogue" asp-action="Index">Catalogue</a>
+</p>
+@*Standard HTML linking med taghelpers*@
+
+<h2>Invoices</h2>
+
+<form method="post" asp-controller="Invoice" asp-action="index">
+	<div>
+		<select name="customer" id="customer" asp-items="@ViewData["Customers"]as List<SelectListItem>"></select>
+		<button type="submit">Show invoices</button>
+	</div>
+</form>
+
+	<style>
+		table, th, td, tr {
+			border: 1px solid black;
+		}
+
+		table {
+			border-collapse: collapse;
+		}
+
+		th, td {
+			padding: 10px;
+		}
+
+		th {
+			text-align: left;
+		}
+	</style>
+
+	<table>
+		<tr class="overskrift_controller">
+			<th>Customer</th>
+			<th>Product</th>
+			<th>Quantity</th>
+			<th>Price</th>
+		</tr>
+		@foreach (Invoice invoice in ViewBag.Invoices)
+		//Jeg laver en foreach loop til at genere tabeller til hver faktura
+		//Jeg har ViewBag.Invoices som er en liste af fakturaer
+		{
+			<tr class="table_controller">
+				<td>@invoice.Customer.Firstname  @invoice.Customer.Lastname</td>
+				@*Jeg referer til @invoice.Customer, da jeg går ind kigger på listen af kunder*@
+				<td>
+					@foreach (OrderItem orderItem in invoice.OrderItems)
+
+					{
+						<p>@orderItem.Product.Title</p>
+					}
+				</td>
+				<td>
+					@foreach (OrderItem orderItem in invoice.OrderItems)
+					{
+						<p>@orderItem.Quantity</p>
+					}
+				</td>
+				<td>
+					@foreach (OrderItem orderItem in invoice.OrderItems)
+					{
+						<p>@orderItem.Product.Price kr.</p>
+					}
+				</td>
+				@*Jeg laver foreach loops til at generer linjer til hver orderprodukt titler, antal og priser*@
+			</tr>
+			<tr class="tableprice_controller">
+				<td></td>
+				<td></td>
+				<th>Total price:</th>
+				<td>
+					@{decimal price = 0M;}
+					@foreach (OrderItem orderItem in invoice.OrderItems)
+					{
+						price = price + (@orderItem.Product.Price * orderItem.Quantity);
+					}
+					<p>@price kr.</p>
+					@*Jeg laver foreach loop til at generer linjer til en samlede pris for orderen, her definerer jeg den samlede pris til at være = 0, først.
+						Derefter regner jeg antallet af produkter gange med deres priser ud, og derved plusser dem til den samlede pris.
+						Ved at gøre det i loop for hver produktorder, får jeg til sidst den samlede pris for orderen.*@
+				</td>
+			</tr>
+		}
+	</table>
