@@ -71,7 +71,7 @@
 						<p><span class="span_bold">ISBN: </span>@book.Isbn</p>
 					</div>
 				</td>
-				<td style="vertical-align:bottom; padding-left:50px;">
+				<td style="vertical-align:bottom; padding-left:10px;">
 					<div>
 						<form id="@book.ProductID" asp-action="AddToCart" asp-controller="Cart" method="post">
 							<input type="hidden" name="ProductID" value="@book.ProductID" />
@@ -158,7 +158,7 @@
 						<p><span class="span_bold">Director: </span>@movie.Director</p>
 					</div>
 				</td>
-				<td style="vertical-align:bottom; padding-left:50px;">
+				<td style="vertical-align:bottom; padding-left:10px;">
 					<div>
 						<form id="@movie.ProductID" asp-action="AddToCart" asp-controller="Cart" method="post">
 							<input type="hidden" name="ProductID" value="@movie.ProductID" />

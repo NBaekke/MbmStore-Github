@@ -6,51 +6,47 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MbmStore.Models;
 using MbmStore.Infastructure;
+using MbmStore.Models.ViewModels;
 
 namespace MbmStore.Controllers
 {
     public class CartController : Controller
     {
-        private IProductRepository repository;
+        private Cart cart;
 
-        public CartController(IProductRepository repo)
+        public CartController(Cart cartService)
         {
-            repository = repo;
+            cart = cartService;
         }
 
-        public RedirectToRouteResult AddToCart(int productID, string returnURL)
+        public ViewResult Index(string returnUrl)
+        {
+            return View(new CartIndexViewModel
+            {
+                Cart = cart,
+                ReturnUrl = returnUrl
+            });
+        }
+        public RedirectToActionResult AddToCart(int productID, string returnUrl)
         {
             Product product = Repository.Products.FirstOrDefault(p => p.ProductID == productID);
+
             if (product != null)
             {
-                Cart cart = GetCart();
                 cart.AddItem(product, 1);
-                SaveCart(cart);
             }
-            return RedirectToAction("Index", new { returnURL });
+            return RedirectToAction("Index", new { returnUrl });
         }
-        public RedirectToRouteResult RemoveFromCart(int productID, string returnURL)
+
+        public RedirectToActionResult RemoveFromCart(int productID, string returnUrl)
         {
-            Product product = Repository.Products
-            .FirstOrDefault(p => p.ProductID == productID);
+            Product product = Repository.Products.FirstOrDefault(p => p.ProductID == productID);
 
             if (product != null)
             {
-                GetCart().RemoveItem(product);
+                cart.RemoveLine(product);
             }
-            return RedirectToAction("Index", new { returnURL });
-        }
-
-        private Cart GetCart()
-        {
-            Cart cart = (Cart)Session["Cart"];
-
-            if (cart == null)
-            {
-                cart = new Cart();
-                Session["Cart"] = cart;
-            }
-            return cart;
+            return RedirectToAction("Index", new { returnUrl });
         }
     }
 }
