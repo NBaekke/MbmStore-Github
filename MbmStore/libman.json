@@ -3,6 +3,7 @@
 	"defaultProvider": "cdnjs",
 	"libraries": [
 		{
+			"library": "twitter-bootstrap@4.1.3",
 			"destination": "wwwroot/lib/bootstrap",
 			"files": [
 				"js/bootstrap.min.js",
