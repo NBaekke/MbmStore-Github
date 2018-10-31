@@ -44,16 +44,10 @@
 		margin-right: 20px;
 	}
 </style>
-<p>
-	<a asp-controller="Home" asp-action="Index">Home</a>
-</p>
-<p>
-	<a asp-controller="Invoice" asp-action="Index">Invoice</a>
-</p>
 @*Standard HTML linking med taghelpers*@
 
 <section class="books_section">
-	<h1>Books</h1>
+	<h2>Books</h2>
 	<table>
 		@foreach (Book book in Model.OfType<Book>().ToList())
 		//Jge laver en foreach loop til at genere div blokke til hver bog
@@ -89,7 +83,7 @@
 	</table>
 </section>
 <section class="cds_section">
-	<h1>Music CDs</h1>
+	<h2>Music CDs</h2>
 	<table>
 		@foreach (MusicCD musicCD in Model.OfType<MusicCD>().ToList())
 		//Jeg laver en foreach loop til at genere div blokke til hver musik cd
@@ -142,7 +136,7 @@
 	</table>
 </section>
 <section class="movie_section">
-	<h1>Movies</h1>
+	<h2>Movies</h2>
 	<table>
 		@foreach (Movie movie in Model.OfType<Movie>().ToList())
 		//Jeg laver en foreach loop til at genere div blokke til hver film

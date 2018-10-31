@@ -11,7 +11,18 @@
 		<a class="navbar-brand" href="#">MusicBookMovie Store</a>
 	</nav>
 	<div class="row m-1 p-1">
-		<div id="categories" class="col-3">Put something useful here later</div>
+		<div id="categories" class="col-3">
+			<p>
+				<a asp-controller="Home" asp-action="Index">Home</a>
+			</p>
+			<p>
+				<a asp-controller="Catalogue" asp-action="Index">Catalogue</a>
+			</p>
+			<p>
+				<a asp-controller="Cart" asp-action="Index">Cart</a>
+			</p>
+
+		</div>
 		<div class="col-9">@RenderBody()</div>
 	</div>
 </body>
