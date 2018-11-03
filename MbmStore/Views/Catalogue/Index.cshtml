@@ -8,10 +8,6 @@
 	ViewData["Title"] = "Catalogue";
 }
 
-@*Standard styling, som giver siden personlighed*@
-
-@*Standard HTML linking med taghelpers*@
-
 @if (Model.Products.OfType<Book>().ToList().Count > 0)
 {
 	<div class="products" style="clear:both">

@@ -43,7 +43,7 @@ namespace MbmStore
 
                 routes.MapRoute(
                     name: null, 
-                    template: "Page{page:int}", 
+                    template: "Catalogue/Page{page:int}", 
                     defaults: new { controller = "Catalogue", action = "Index", productPage = 1 });
 
                 routes.MapRoute(
