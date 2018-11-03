@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MbmStore.Infastructure;
+using MbmStore.Infrastructure;
 using MbmStore.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 

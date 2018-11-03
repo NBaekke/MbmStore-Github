@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
-using MbmStore.Infastructure;
+using MbmStore.Infrastructure;
 
 namespace MbmStore.Models.ViewModels
 {

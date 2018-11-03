@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace MbmStore.Infastructure
+namespace MbmStore.Infrastructure
 {
     public static class SessionExtensions
     {

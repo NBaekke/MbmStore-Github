@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MbmStore.Models;
-using MbmStore.Infastructure;
+using MbmStore.Infrastructure;
 using MbmStore.Models.ViewModels;
 
 namespace MbmStore.Controllers

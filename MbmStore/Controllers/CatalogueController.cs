@@ -2,31 +2,36 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MbmStore.Models;
 using Microsoft.AspNetCore.Mvc;
-using MbmStore.Infastructure;
+using MbmStore.Models;
+using MbmStore.Models.ViewModels;
+using MbmStore.Infrastructure;
 
 namespace MbmStore.Controllers
 {
     public class CatalogueController : Controller
     {
-        public IActionResult Index()
+        public int PageSize = 4;
+
+        public ActionResult Index(string category, int page = 1)
         {
-            ViewBag.Products = Repository.Products;
-
-            IList<Book> books = new List<Book>();
-            books = Repository.Products.OfType<Book>().ToList();
-            ViewBag.Books = books;
-            
-            IList<MusicCD> musicCDs = new List<MusicCD>();
-            musicCDs = Repository.Products.OfType<MusicCD>().ToList();
-            ViewBag.MusicCDs = musicCDs;
-
-            IList<Movie> movies = new List<Movie>();
-            movies = Repository.Products.OfType<Movie>().ToList();
-            ViewBag.Movies = movies;
-
-            return View(Repository.Products);
+            ProductsListViewModel model = new ProductsListViewModel();
+            model = new ProductsListViewModel
+            {
+                Products = Repository.Products
+                .Where(p => category == null || p.Category == category)
+                .OrderBy(p => p.ProductID)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = Repository.Products.Count()
+                },
+                CurrentCategory = category
+            };
+            return View(model);
         }
     }
 }

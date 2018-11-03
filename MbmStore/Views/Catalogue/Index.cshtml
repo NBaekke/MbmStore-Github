@@ -1,172 +1,51 @@
 ﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
-@using MbmStore.Infastructure;
+@using MbmStore.Infrastructure;
 @using MbmStore.Models;
-@model IEnumerable<Product>
+@model ProductsListViewModel
 @*TagHelper til links*@
 @{
-	Layout = "~/Views/Shared/_Layout.cshtml";
+	//Layout = "~/Views/Shared/_Layout.cshtml";
 	ViewData["Title"] = "Catalogue";
 }
 
 @*Standard styling, som giver siden personlighed*@
-<style>
-	.books_section, .cds_section, .movie_section, .cds_controller, .tracks_controller, img {
-		float: left;
-	}
 
-	.books_section {
-		width: 33%;
-	}
-
-	.books_controller, .cds_controller, .tracks_controller, .movie_controller {
-		height: 300px;
-	}
-
-	.cds_section {
-		width: 66%;
-	}
-
-	.cds_controller, .tracks_controller {
-		width: 50%;
-	}
-
-	.movie_section {
-		width: 100%;
-		margin-top: 50px;
-	}
-
-	.span_bold {
-		font-weight: bold;
-	}
-
-	img {
-		height: 250px;
-		margin-right: 20px;
-	}
-</style>
 @*Standard HTML linking med taghelpers*@
 
-<section class="books_section">
-	<h2>Books</h2>
-	<table>
-		@foreach (Book book in Model.OfType<Book>().ToList())
-		//Jge laver en foreach loop til at genere div blokke til hver bog
-		//Jeg har ViewBag.Books som er en liste af bøger
+@if (Model.Products.OfType<Book>().ToList().Count > 0)
+{
+	<div class="products" style="clear:both">
+		<h2>Books</h2>
+		@foreach (Book book in Model.Products.OfType<Book>().ToList())
 		{
-			<tr>
-				<td valign="top">
-					<img src="/Images/@book.ImageUrl" alt="@book.Title" />
-				</td>
-				<td valign="top">
-					<div class="books_controller">
-						<p><span class="span_bold">Author: </span>@book.Author</p>
-						<p><span class="span_bold">Title: </span>@book.Title</p>
-						<p><span class="span_bold">Price: </span>@book.Price kr.</p>
-						<p><span class="span_bold">Publisher: </span>@book.Publisher (@book.Published)</p>
-						<p><span class="span_bold">ISBN: </span>@book.Isbn</p>
-					</div>
-				</td>
-				<td style="vertical-align:bottom; padding-left:10px;">
-					<div>
-						<form id="@book.ProductID" asp-action="AddToCart" asp-controller="Cart" method="post">
-							<input type="hidden" name="ProductID" value="@book.ProductID" />
-							<input type="hidden" name="returnURL" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-							<span class="card-text p-1">
-								<button type="submit" class="btn btn-success btn-sm pull-right" style="float:right">Add To Cart</button>
-							</span>
-						</form>
-					</div>
-				</td>
-				@*Jeg referer til @book., da jeg går ind kigger på listen af bøger*@
-			</tr>
+			@await Html.PartialAsync("_ProductSummaryBook", book)
 		}
-	</table>
-</section>
-<section class="cds_section">
-	<h2>Music CDs</h2>
-	<table>
-		@foreach (MusicCD musicCD in Model.OfType<MusicCD>().ToList())
-		//Jeg laver en foreach loop til at genere div blokke til hver musik cd
-		//Jeg har ViewBag.MusicCDs som er en liste af musik cd'er
+	</div>
+}
+
+@if (Model.Products.OfType<MusicCD>().ToList().Count > 0)
+{
+	<div class="products" style="clear:both">
+		<h2>Music CDs</h2>
+		@foreach (MusicCD musicCD in Model.Products.OfType<MusicCD>().ToList())
 		{
-			<tr>
-				<td valign="top">
-					<img src="/Images/@musicCD.ImageUrl" alt="@musicCD.Title" />
-				</td>
-				<td valign="top">
-					<div class="cds_controller">
-						<p><span class="span_bold">Artist: </span>@musicCD.Artist</p>
-						<p><span class="span_bold">Title: </span>@musicCD.Title</p>
-						<p><span class="span_bold">Price: </span>@musicCD.Price kr.</p>
-						<p><span class="span_bold">Released: </span>@musicCD.Released</p>
-					</div>
-				</td>
-				<td style="vertical-align:bottom; padding-left:50px;">
-					<div>
-						<form id="@musicCD.ProductID" asp-action="AddToCart" asp-controller="Cart" method="post">
-							<input type="hidden" name="ProductID" value="@musicCD.ProductID" />
-							<input type="hidden" name="returnURL" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-							<span class="card-text p-1">
-								<button type="submit" class="btn btn-success btn-sm pull-right" style="float:right">Add To Cart</button>
-							</span>
-						</form>
-					</div>
-				</td>
-				@*Jeg referer til @musicCD., da vi går ind kigger på listen af bøger*@
-				<td valign="top">
-					<div class="tracks_controller">
-						<p><span class="span_bold">Tracks:</span></p>
-						<ol>
-							@foreach (var track in musicCD.Tracks)
-							//Jeg laver en foreach loop til at genere lister til hvert nummer i den såkaldte musik cd
-							//Da jeg stadig er i en foreach loop for ViewBag.MusicCDs, skal jeg kigge på musicCDs.Tracks
-							{
-
-								<li><p>@track.Title (@track.Composer) @track.Length.ToString(@"m\:ss")</p></li>
-
-								//Jeg referer til @track., da jeg går ind kigger på listen af numre
-							}
-						</ol>
-						<p><span class="span_bold">Total playing time: </span>@musicCD.GetPlayingTime()</p>
-						@*Jeg regner den samlede tid i Model -> MusicCD.cs*@
-					</div>
-				</td>
-			</tr>
+			@await Html.PartialAsync("_ProductSummaryMusicCD", musicCD)
 		}
-	</table>
-</section>
-<section class="movie_section">
-	<h2>Movies</h2>
-	<table>
-		@foreach (Movie movie in Model.OfType<Movie>().ToList())
-		//Jeg laver en foreach loop til at genere div blokke til hver film
-		//Jeg har ViewBag.Movies som er en liste af film
+	</div>
+}
+
+@if (Model.Products.OfType<Movie>().ToList().Count > 0)
+{
+	<div class="products" style="clear:both">
+		<h2>Movies</h2>
+		@foreach (Movie movie in Model.Products.OfType<Movie>().ToList())
 		{
-			<tr>
-				<td valign="top">
-					<img src="/Images/@movie.ImageUrl" alt="@movie.Title" />
-				</td>
-				<td valign="top">
-					<div class="movie_controller">
-						<p><span class="span_bold">Title: </span>@movie.Title</p>
-						<p><span class="span_bold">Price: </span>@movie.Price kr.</p>
-						<p><span class="span_bold">Director: </span>@movie.Director</p>
-					</div>
-				</td>
-				<td style="vertical-align:bottom; padding-left:10px;">
-					<div>
-						<form id="@movie.ProductID" asp-action="AddToCart" asp-controller="Cart" method="post">
-							<input type="hidden" name="ProductID" value="@movie.ProductID" />
-							<input type="hidden" name="returnURL" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-							<span class="card-text p-1">
-								<button type="submit" class="btn btn-success btn-sm pull-right" style="float:right">Add To Cart</button>
-							</span>
-						</form>
-					</div>
-				</td>
-			</tr>
-			@*Jeg referer til @movies., da jeg går ind kigger på listen af film*@
+			@await Html.PartialAsync("_ProductSummaryMovie", movie)
 		}
-	</table>
-</section>
-
+	</div>
+}
+<div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+	page-class="btn" page-class-normal="btn-secondary"
+	page-class-selected="btn-primary" page-url-category="@Model.CurrentCategory"
+	class="btn-group pul-right m-1">
+</div>

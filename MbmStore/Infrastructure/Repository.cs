@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MbmStore.Infastructure
+namespace MbmStore.Infrastructure
 {
     public static class Repository
     {
@@ -15,13 +15,19 @@ namespace MbmStore.Infastructure
         static Repository()
         {
             Book harrypotter1 = new Book(1, "J.K. Rowling", "Harry Potter and the Philosopher's Stone", 100, "Bloomsbury", 1997, "0-7475-3269-9", "thephilosophersstone.jpg");
+            harrypotter1.Category = "Book";
             Book lordoftherings1 = new Book(2, "J.R.R. Tolkien", "The Fellowship of the Ring", 150, "George Allen & Unwin", 1954, "0-345-24032-4", "thefellowship.jpg");
+            lordoftherings1.Category = "Book";
             Book gameofthrones1 = new Book(3, "George R.R. Martin", "A Game of Thrones", 120, "Bantam Spectra", 1996, "0-553-10354-7", "agameofthrones.jpg");
+            gameofthrones1.Category = "Book";
             // Definerer nogle bøger med deres properties
 
             MusicCD metallica1 = new MusicCD(4, "Metallica", "Metallica", 100, 1991, "metallica.jpg");
+            metallica1.Category = "Music CD";
             MusicCD acdc1 = new MusicCD(5, "AC/DC", "Highway to Hell", 170, 1979, "highwaytohell.jpg");
+            acdc1.Category = "Music CD";
             MusicCD redhotchilipeppers1 = new MusicCD(6, "Red Hot Chili Peppers", "Californication", 180, 1999, "californication.jpg");
+            redhotchilipeppers1.Category = "Music CD";
             // Definerer nogle cd'er med deres properties
 
             Track metallica01 = new Track("Enter Sandman", "Hammett, Ulrich, Hetfield", new TimeSpan(0, 5, 34));
@@ -38,8 +44,11 @@ namespace MbmStore.Infastructure
             // Definerer nogle numre med deres properties
 
             Movie thegodfather = new Movie(7, "The Godfather", 100, "thegodfather.jpg", "Francis Ford Coppola");
+            thegodfather.Category = "Movie";
             Movie thematrix = new Movie(8, "The Matrix", 100, "thematrix.jpg", "The Wachowski Brothers");
+            thematrix.Category = "Movie";
             Movie forrestgump = new Movie(9, "Forrest Gump", 100, "forrestgump.jpg", "Robert Zemeckis");
+            forrestgump.Category = "Movie";
             // Definerer nogle film med deres properties
 
             Products.Add(harrypotter1);

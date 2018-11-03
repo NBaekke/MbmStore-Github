@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace MbmStore.Infastructure
+namespace MbmStore.Infrastructure
 {
     public static class UrlExtensions
     {

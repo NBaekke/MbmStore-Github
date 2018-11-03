@@ -34,7 +34,32 @@ namespace MbmStore
 
             app.UseStaticFiles();
             app.UseSession();
-            app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: null, 
+                    template: "Catalogue/{category}/Page{page:int}", 
+                    defaults: new { controller = "Catalogue", action = "Index" });
+
+                routes.MapRoute(
+                    name: null, 
+                    template: "Page{page:int}", 
+                    defaults: new { controller = "Catalogue", action = "Index", productPage = 1 });
+
+                routes.MapRoute(
+                    name: null, 
+                    template: "Catalogue/{category}",
+                    defaults: new { controller = "Catalogue", action = "Index", productPage = 1 });
+
+                routes.MapRoute(
+                    name: null, 
+                    template: "", 
+                    defaults: new { controller = "Catalogue", action = "Index", productPage = 1 });
+
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Catalogue}/{action=Index}/{id?}");
+            });
         }
     }
 }

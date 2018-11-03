@@ -38,6 +38,8 @@ namespace MbmStore.Models
             get { return imageUrl; }
             set { imageUrl = value; }
         }
+
+        public string Category { get; set; }
         // public giver alle adgange til disse properties
 
         // constructors
