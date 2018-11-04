@@ -1,113 +1,51 @@
 ﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@using MbmStore.Infrastructure;
+@using MbmStore.Models;
+@model ProductsListViewModel
 @*TagHelper til links*@
 @{
+	//Layout = "~/Views/Shared/_Layout.cshtml";
 	ViewData["Title"] = "Catalogue";
 }
+<div class="container">
+	<div class="row justify-content-center mb-5">
+		@if (Model.Products.OfType<Book>().ToList().Count > 0)
+		{
+			<div class="col-12 mt-5" style="clear:both">
+				<h2 style="margin-bottom:-30px">Books</h2>
+				@foreach (Book book in Model.Products.OfType<Book>().ToList())
+				{
+					@await Html.PartialAsync("_ProductSummaryBook", book)
+				}
+			</div>
+		}
 
-@*Standard styling, som giver siden personlighed*@
-<style>
-	.books_section, .cds_section, .movie_section, .cds_controller, .tracks_controller, img {
-		float: left;
-	}
+		@if (Model.Products.OfType<MusicCD>().ToList().Count > 0)
+		{
+			
+			<div class="col-12 mt-5" style="clear:both">
+				<h2 style="margin-bottom:-30px">Music CDs</h2>
+				@foreach (MusicCD musicCD in Model.Products.OfType<MusicCD>().ToList())
+				{
+					@await Html.PartialAsync("_ProductSummaryMusicCD", musicCD)
+				}
+			</div>
+		}
 
-	.books_section {
-		width: 33%;
-	}
-
-	.books_controller, .cds_controller, .tracks_controller, .movie_controller {
-		height: 300px;
-	}
-
-	.cds_section {
-		width: 66%;
-	}
-
-	.cds_controller, .tracks_controller {
-		width: 50%;
-	}
-
-	.movie_section {
-		width: 100%;
-		margin-top: 50px;
-	}
-
-	.span_bold {
-		font-weight: bold;
-	}
-
-	img {
-		height: 250px;
-		margin-right: 20px;
-	}
-</style>
-<p>
-	<a asp-controller="Home" asp-action="Index">Home</a>
-</p>
-<p>
-	<a asp-controller="Invoice" asp-action="Index">Invoice</a>
-</p>
-@*Standard HTML linking med taghelpers*@
-
-<section class="books_section">
-	<h1>Books</h1>
-	@foreach (var books in ViewBag.Books)
-	//Jge laver en foreach loop til at genere div blokke til hver bog
-	//Jeg har ViewBag.Books som er en liste af bøger
-	{
-		<div class="books_controller">
-			<img src="~/Images/@books.ImageUrl" alt="@books.Title" />
-			<p><span class="span_bold">Author: </span>@books.Author</p>
-			<p><span class="span_bold">Title: </span>@books.Title</p>
-			<p><span class="span_bold">Price: </span>@books.Price kr.</p>
-			<p><span class="span_bold">Publisher: </span>@books.Publisher (@books.Published)</p>
-			<p><span class="span_bold">ISBN: </span>@books.Isbn</p>
-		</div>
-		//Jeg referer til @books., da jeg går ind kigger på listen af bøger
-	}
-</section>
-<section class="cds_section">
-	<h1>Music CDs</h1>
-	@foreach (var musicCDs in ViewBag.MusicCDs)
-	//Jeg laver en foreach loop til at genere div blokke til hver musik cd
-	//Jeg har ViewBag.MusicCDs som er en liste af musik cd'er
-	{
-		<div class="cds_controller">
-			<img src="/Images/@musicCDs.ImageUrl" alt="@musicCDs.Title" />
-			<p><span class="span_bold">Artist: </span>@musicCDs.Artist</p>
-			<p><span class="span_bold">Title: </span>@musicCDs.Title</p>
-			<p><span class="span_bold">Price: </span>@musicCDs.Price</p>
-			<p><span class="span_bold">Released: </span>@musicCDs.Released</p>
-		</div>
-		//Jeg referer til @musicCDs., da vi går ind kigger på listen af bøger
-		<div class="tracks_controller">
-			<p><span class="span_bold">Tracks:</span></p>
-			@foreach (var track in musicCDs.Tracks)
-			//Jeg laver en foreach loop til at genere lister til hvert nummer i den såkaldte musik cd
-			//Da jeg stadig er i en foreach loop for ViewBag.MusicCDs, skal jeg kigge på musicCDs.Tracks
-			{
-				<ol>
-					<li><p>@track.Title (@track.Composer) @track.Length.ToString(@"m\:ss")</p></li>
-				</ol>
-				//Jeg referer til @track., da jeg går ind kigger på listen af numre
-			}
-			<p><span class="span_bold">Total playing time: </span>@musicCDs.GetPlayingTime()</p>
-			@*Jeg regner den samlede tid i Model -> MusicCD.cs*@
-		</div>
-	}
-</section>
-<section class="movie_section">
-	<h1>Movies</h1>
-	@foreach (var movies in ViewBag.Movies)
-	//Jeg laver en foreach loop til at genere div blokke til hver film
-	//Jeg har ViewBag.Movies som er en liste af film
-	{
-		<div class="movie_controller">
-			<img src="/Images/@movies.ImageUrl" alt="@movies.Title" />
-			<p><span class="span_bold">Title: </span>@movies.Title</p>
-			<p><span class="span_bold">Price: </span>@movies.Price kr.</p>
-			<p><span class="span_bold">Director: </span>@movies.Director</p>
-		</div>
-		//Jeg referer til @movies., da jeg går ind kigger på listen af film
-	}
-</section>
-
+		@if (Model.Products.OfType<Movie>().ToList().Count > 0)
+		{
+			<div class="col-12 mt-5" style="clear:both">
+				<h2 style="margin-bottom:-30px">Movies</h2>
+				@foreach (Movie movie in Model.Products.OfType<Movie>().ToList())
+				{
+					@await Html.PartialAsync("_ProductSummaryMovie", movie)
+				}
+			</div>
+		}
+	</div>
+	<div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+		 page-class="btn" page-class-normal="btn-secondary"
+		 page-class-selected="btn-primary" page-url-category="@Model.CurrentCategory"
+		 class="btn-group pul-right m-1">
+	</div>
+</div>

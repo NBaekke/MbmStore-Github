@@ -7,41 +7,45 @@
 	//Layout = "~/Views/Shared/_Layout.cshtml";
 	ViewData["Title"] = "Catalogue";
 }
-
-@if (Model.Products.OfType<Book>().ToList().Count > 0)
-{
-	<div class="products" style="clear:both">
-		<h2>Books</h2>
-		@foreach (Book book in Model.Products.OfType<Book>().ToList())
+<div class="container">
+	<div class="row justify-content-center mb-5">
+		@if (Model.Products.OfType<Book>().ToList().Count > 0)
 		{
-			@await Html.PartialAsync("_ProductSummaryBook", book)
+			<div class="col-12 mt-5" style="clear:both">
+				<h2 style="margin-bottom:-30px">Books</h2>
+				@foreach (Book book in Model.Products.OfType<Book>().ToList())
+				{
+					@await Html.PartialAsync("_ProductSummaryBook", book)
+				}
+			</div>
+		}
+
+		@if (Model.Products.OfType<MusicCD>().ToList().Count > 0)
+		{
+			
+			<div class="col-12 mt-5" style="clear:both">
+				<h2 style="margin-bottom:-30px">Music CDs</h2>
+				@foreach (MusicCD musicCD in Model.Products.OfType<MusicCD>().ToList())
+				{
+					@await Html.PartialAsync("_ProductSummaryMusicCD", musicCD)
+				}
+			</div>
+		}
+
+		@if (Model.Products.OfType<Movie>().ToList().Count > 0)
+		{
+			<div class="col-12 mt-5" style="clear:both">
+				<h2 style="margin-bottom:-30px">Movies</h2>
+				@foreach (Movie movie in Model.Products.OfType<Movie>().ToList())
+				{
+					@await Html.PartialAsync("_ProductSummaryMovie", movie)
+				}
+			</div>
 		}
 	</div>
-}
-
-@if (Model.Products.OfType<MusicCD>().ToList().Count > 0)
-{
-	<div class="products" style="clear:both">
-		<h2>Music CDs</h2>
-		@foreach (MusicCD musicCD in Model.Products.OfType<MusicCD>().ToList())
-		{
-			@await Html.PartialAsync("_ProductSummaryMusicCD", musicCD)
-		}
+	<div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+		 page-class="btn" page-class-normal="btn-secondary"
+		 page-class-selected="btn-primary" page-url-category="@Model.CurrentCategory"
+		 class="btn-group pul-right m-1">
 	</div>
-}
-
-@if (Model.Products.OfType<Movie>().ToList().Count > 0)
-{
-	<div class="products" style="clear:both">
-		<h2>Movies</h2>
-		@foreach (Movie movie in Model.Products.OfType<Movie>().ToList())
-		{
-			@await Html.PartialAsync("_ProductSummaryMovie", movie)
-		}
-	</div>
-}
-<div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
-	page-class="btn" page-class-normal="btn-secondary"
-	page-class-selected="btn-primary" page-url-category="@Model.CurrentCategory"
-	class="btn-group pul-right m-1">
 </div>

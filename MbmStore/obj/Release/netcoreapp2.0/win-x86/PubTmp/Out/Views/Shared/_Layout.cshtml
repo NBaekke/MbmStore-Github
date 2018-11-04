@@ -1,13 +1,28 @@
-﻿<!DOCTYPE html>
-
+﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+<!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+	<meta name="viewport" content="width=device-width" />
+	<link rel="stylesheet" asp-href-include="/lib/bootstrap/**/*.min.css" />
+	<link rel="stylesheet" asp-href-include="/lib/font-awesome/css/*.css" />
+	<title>@ViewData["Title"]</title>
 </head>
-<body>
-    <div>
-        @RenderBody()
-    </div>
+<body>	
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand m-0" href="#">MusicBookMovie Store</a>
+		<div class="container">
+			<div class="justify-content-center col-12 text-right pr-4">
+				@await Component.InvokeAsync("CartSummary")
+			</div>
+		</div>
+	</nav>
+	<div class="row mr-0">
+		<div id="categories" class="col-1 bg-dark ml-2 p-3">
+			@await Component.InvokeAsync("NavigationMenu", "Nav")
+		</div>
+		<div class="col">
+			@RenderBody()
+		</div>
+	</div>
 </body>
 </html>
